@@ -12,5 +12,5 @@ import java.util.ArrayList;
 public class DataNumbers {
 
     private ArrayList<Integer> numbers;
-    private String order;
+    private Order order;
 }

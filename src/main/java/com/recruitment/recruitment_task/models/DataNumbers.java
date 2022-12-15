@@ -5,12 +5,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
 @RequiredArgsConstructor
 public class DataNumbers {
 
-    private ArrayList<Integer> numbers;
+    private List<Integer> numbers;
     private Order order;
 }

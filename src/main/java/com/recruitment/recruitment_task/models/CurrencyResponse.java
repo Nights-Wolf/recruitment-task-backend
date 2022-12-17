@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @RequiredArgsConstructor
-public class Currency {
+public class CurrencyResponse {
 
-    private String currency;
+    private Double value;
 }

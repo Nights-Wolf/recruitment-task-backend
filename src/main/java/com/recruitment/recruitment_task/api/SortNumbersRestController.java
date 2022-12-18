@@ -1,7 +1,7 @@
 package com.recruitment.recruitment_task.api;
 
 import com.recruitment.recruitment_task.models.DataNumbers;
-import com.recruitment.recruitment_task.servicesImpl.SortNumbersServiceImpl;
+import com.recruitment.recruitment_task.servicesInterfaces.SortNumbersServiceInterface;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SortNumbersRestController {
 
-    private final SortNumbersServiceImpl sortNumbersService;
+    private final SortNumbersServiceInterface sortNumbersService;
 
     @PostMapping("/numbers/sort-command")
     public ResponseEntity<List<Integer>> sortNumbers(@RequestBody DataNumbers dataNumbers) {

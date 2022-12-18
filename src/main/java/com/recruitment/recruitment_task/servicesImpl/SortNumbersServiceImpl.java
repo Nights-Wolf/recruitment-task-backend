@@ -7,17 +7,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class SortNumbersServiceImpl implements SortNumbersServiceInterface {
 
     @Override
-    public ResponseEntity<List<Integer>> sortNumbers(DataNumbers dataNumbers) {
+    public ResponseEntity<Object> sortNumbers(DataNumbers dataNumbers) {
         Order order = dataNumbers.getOrder();
+
+        if (order == null) {
+            Map<String, String> nullOrderError = new HashMap<>();
+
+            nullOrderError.put("Message", "Order can not be null");
+            nullOrderError.put("Status", HttpStatus.BAD_REQUEST.toString());
+
+            return new ResponseEntity<>(nullOrderError, HttpStatus.BAD_REQUEST);
+        }
 
         if (dataNumbers.getNumbers() == null || dataNumbers.getNumbers().isEmpty()) {
             List<Integer> nullOrEmpty = new ArrayList<>();

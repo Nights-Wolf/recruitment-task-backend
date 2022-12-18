@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SortNumbersServiceInterface {
 
-    ResponseEntity<List<Integer>> sortNumbers(DataNumbers dataNumbers);
+    ResponseEntity<Object> sortNumbers(DataNumbers dataNumbers);
 }

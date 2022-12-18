@@ -19,7 +19,7 @@ public class SortNumbersRestController {
     private final SortNumbersServiceInterface sortNumbersService;
 
     @PostMapping("/numbers/sort-command")
-    public ResponseEntity<List<Integer>> sortNumbers(@RequestBody DataNumbers dataNumbers) {
+    public ResponseEntity<Object> sortNumbers(@RequestBody DataNumbers dataNumbers) {
             return sortNumbersService.sortNumbers(dataNumbers);
     }
 }

@@ -4,14 +4,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @RequiredArgsConstructor
-public class DataNumbers {
+public class DataNumbersResponse {
 
     private List<Integer> numbers;
-    private Order order;
 }

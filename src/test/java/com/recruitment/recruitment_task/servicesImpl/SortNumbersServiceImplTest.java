@@ -1,6 +1,7 @@
 package com.recruitment.recruitment_task.servicesImpl;
 
-import com.recruitment.recruitment_task.models.DataNumbers;
+import com.recruitment.recruitment_task.models.DataNumbersRequest;
+import com.recruitment.recruitment_task.models.DataNumbersResponse;
 import com.recruitment.recruitment_task.models.Order;
 import com.recruitment.recruitment_task.servicesInterfaces.SortNumbersServiceInterface;
 import org.junit.jupiter.api.Test;
@@ -30,18 +31,22 @@ class SortNumbersServiceImplTest {
         testNumbers.add(4);
         testNumbers.add(10);
 
-        DataNumbers dataNumbers = new DataNumbers();
-        dataNumbers.setNumbers(testNumbers);
-        dataNumbers.setOrder(Order.ASC);
+        DataNumbersRequest dataNumbersRequest = new DataNumbersRequest();
+        dataNumbersRequest.setNumbers(testNumbers);
+        dataNumbersRequest.setOrder(Order.ASC);
 
         List<Integer> sortedArray = testNumbers
                 .stream()
                 .sorted()
                 .collect(Collectors.toList());
 
-        ResponseEntity<Object> responseEntity =  sortNumbersServiceInterface.sortNumbers(dataNumbers);
+        DataNumbersResponse dataNumbersResponse = new DataNumbersResponse();
+        dataNumbersResponse.setNumbers(sortedArray);
 
-        assertEquals(sortedArray, responseEntity.getBody());
+        ResponseEntity<Object> responseEntity =  sortNumbersServiceInterface.sortNumbers(dataNumbersRequest);
+        DataNumbersResponse dataNumbersResponseActual = (DataNumbersResponse) responseEntity.getBody();
+
+        assertEquals(dataNumbersResponse.getNumbers(), dataNumbersResponseActual.getNumbers());
     }
 
     @Test
@@ -52,38 +57,46 @@ class SortNumbersServiceImplTest {
         testNumbers.add(4);
         testNumbers.add(10);
 
-        DataNumbers dataNumbers = new DataNumbers();
-        dataNumbers.setNumbers(testNumbers);
-        dataNumbers.setOrder(Order.DSC);
+        DataNumbersRequest dataNumbersRequest = new DataNumbersRequest();
+        dataNumbersRequest.setNumbers(testNumbers);
+        dataNumbersRequest.setOrder(Order.DSC);
 
         List<Integer> sortedDescend = testNumbers
                 .stream()
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
 
-        ResponseEntity<Object> responseEntity = sortNumbersServiceInterface.sortNumbers(dataNumbers);
+        DataNumbersResponse dataNumbersResponse = new DataNumbersResponse();
+        dataNumbersResponse.setNumbers(sortedDescend);
 
-        assertEquals(sortedDescend, responseEntity.getBody());
+        ResponseEntity<Object> responseEntity = sortNumbersServiceInterface.sortNumbers(dataNumbersRequest);
+        DataNumbersResponse dataNumbersResponseActual = (DataNumbersResponse) responseEntity.getBody();
+
+        assertEquals(dataNumbersResponse.getNumbers(), dataNumbersResponseActual.getNumbers());
     }
 
     @Test
     void shouldReturnEmptyList() {
         List<Integer> emptyList = new ArrayList<>();
 
-        DataNumbers dataNumbers = new DataNumbers();
-        dataNumbers.setNumbers(emptyList);
-        dataNumbers.setOrder(Order.ASC);
+        DataNumbersRequest dataNumbersRequest = new DataNumbersRequest();
+        dataNumbersRequest.setNumbers(emptyList);
+        dataNumbersRequest.setOrder(Order.ASC);
 
-        ResponseEntity<Object> responseEntity = sortNumbersServiceInterface.sortNumbers(dataNumbers);
+        DataNumbersResponse dataNumbersResponse = new DataNumbersResponse();
+        dataNumbersResponse.setNumbers(emptyList);
 
-        assertEquals(emptyList, responseEntity.getBody());
+        ResponseEntity<Object> responseEntity = sortNumbersServiceInterface.sortNumbers(dataNumbersRequest);
+        DataNumbersResponse dataNumbersResponseActual = (DataNumbersResponse) responseEntity.getBody();
+
+        assertEquals(dataNumbersResponse.getNumbers(), dataNumbersResponseActual.getNumbers());
     }
 
     @Test
     void shouldReturnBadRequest() {
-        DataNumbers dataNumbers = new DataNumbers();
+        DataNumbersRequest dataNumbersRequest = new DataNumbersRequest();
 
-        ResponseEntity<Object> responseEntity = sortNumbersServiceInterface.sortNumbers(dataNumbers);
+        ResponseEntity<Object> responseEntity = sortNumbersServiceInterface.sortNumbers(dataNumbersRequest);
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
         assertEquals(status, responseEntity.getStatusCode());

@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Setter
-@Getter
-@RequiredArgsConstructor
-public class Currency {
+import java.util.List;
 
-    private String currency;
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class DataNumbersResponse {
+
+    private List<Integer> numbers;
 }

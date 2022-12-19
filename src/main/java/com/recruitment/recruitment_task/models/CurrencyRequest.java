@@ -4,13 +4,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @Setter
 @Getter
 @RequiredArgsConstructor
-public class DataNumbers {
+public class CurrencyRequest {
 
-    private ArrayList<Integer> numbers;
-    private String order;
+    private String currency;
 }

@@ -3,19 +3,17 @@ package com.recruitment.recruitment_task.servicesImpl;
 import com.recruitment.recruitment_task.models.CurrencyRequest;
 import com.recruitment.recruitment_task.models.CurrencyResponse;
 import com.recruitment.recruitment_task.servicesInterfaces.CurrencyServiceInterface;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class CurrencyServiceImplTest {
+class CurrencyServiceImplUnitTest {
 
     @Autowired
     private CurrencyServiceInterface currencyServiceInterface;

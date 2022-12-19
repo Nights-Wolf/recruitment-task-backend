@@ -1,6 +1,6 @@
 package com.recruitment.recruitment_task.api;
 
-import com.recruitment.recruitment_task.servicesImpl.PongServiceImpl;
+import com.recruitment.recruitment_task.servicesInterfaces.PongServiceInterface;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ class PongRestControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private PongServiceImpl pongService;
+    private PongServiceInterface pongService;
 
     @Test
     void shouldReturnPong() throws Exception {

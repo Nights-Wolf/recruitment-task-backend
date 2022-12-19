@@ -1,8 +1,7 @@
 package com.recruitment.recruitment_task.api;
 
 import com.recruitment.recruitment_task.models.DataNumbersRequest;
-import com.recruitment.recruitment_task.models.Order;
-import com.recruitment.recruitment_task.servicesImpl.SortNumbersServiceImpl;
+import com.recruitment.recruitment_task.servicesInterfaces.SortNumbersServiceInterface;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(SortNumbersRestController.class)
@@ -26,7 +21,7 @@ class SortNumbersRestControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private SortNumbersServiceImpl sortNumbersService;
+    private SortNumbersServiceInterface sortNumbersService;
 
     @Test
     void sortShouldSortNumbersAsc() throws Exception {
@@ -46,5 +41,26 @@ class SortNumbersRestControllerIntegrationTest {
                 .andExpect(status().isOk());
 
         Mockito.verify(sortNumbersService).sortNumbers(any(DataNumbersRequest.class));
+    }
+
+    @Test
+    void shouldReturn400IfOrderIsIncorrect() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/numbers/sort-command")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"numbers\": [1, 3, 2, 5, 2], \"order\": \"DC\"}"))
+                .andExpect(status().isBadRequest());
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/numbers/sort-command")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"numbers\": [1, 3, 2, 5, h], \"order\": \"DSC\"}"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturn400IfNumbersAreIncorrect() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/numbers/sort-command")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"numbers\": [1, 3, 2, 5, h], \"order\": \"DSC\"}"))
+                .andExpect(status().isBadRequest());
     }
 }

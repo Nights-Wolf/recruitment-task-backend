@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class SortNumbersServiceImplTest {
+class SortNumbersServiceImplUnitTest {
 
     @Autowired
     private SortNumbersServiceInterface sortNumbersServiceInterface;

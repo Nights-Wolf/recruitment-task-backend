@@ -29,7 +29,7 @@ public class CurrencyServiceImpl implements CurrencyServiceInterface {
             errorMap.put("Message", e.getMessage());
             errorMap.put("Status", e.getStatusCode().toString());
 
-            return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(errorMap, e.getStatusCode());
         }
 
         CurrencyResponse currencyResponse = currencyAPIResponse.getBody();

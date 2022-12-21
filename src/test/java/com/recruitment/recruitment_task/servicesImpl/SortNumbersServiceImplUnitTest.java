@@ -101,4 +101,36 @@ class SortNumbersServiceImplUnitTest {
 
         assertEquals(status, responseEntity.getStatusCode());
     }
+
+    @Test
+    void shouldConvertDoubleOrFloatToInteger() {
+        List<Integer> testNumbersDouble = new ArrayList<>();
+        testNumbersDouble.add((int) 2.5);
+        testNumbersDouble.add((int) 2.5);
+        testNumbersDouble.add((int) 4.3);
+        testNumbersDouble.add((int) 10.1);
+
+        DataNumbersRequest dataNumbersRequest = new DataNumbersRequest();
+        dataNumbersRequest.setNumbers(testNumbersDouble);
+        dataNumbersRequest.setOrder(Order.DSC);
+
+        List<Integer> testNumbers = new ArrayList<>();
+        testNumbers.add(2);
+        testNumbers.add(2);
+        testNumbers.add(4);
+        testNumbers.add(10);
+
+        List<Integer> sortedDescend = testNumbers
+                .stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
+
+        DataNumbersResponse dataNumbersResponse = new DataNumbersResponse();
+        dataNumbersResponse.setNumbers(sortedDescend);
+
+        ResponseEntity<Object> responseEntity = sortNumbersServiceInterface.sortNumbers(dataNumbersRequest);
+        DataNumbersResponse dataNumbersResponseActual = (DataNumbersResponse) responseEntity.getBody();
+
+        assertEquals(dataNumbersResponse.getNumbers(), dataNumbersResponseActual.getNumbers());
+    }
 }
